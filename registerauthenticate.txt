@@ -1,0 +1,147 @@
+Register.jsp
+
+<%-- 
+    Document   : Register
+    Created on : 4 Oct, 2019, 11:34:40 PM
+    Author     : TEJAS
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+    </head>
+    <body>
+        <form action="reg" >
+<h1> New User Registration Page</h1>
+Enter User Name <input type="text" name="name" ><br>
+Enter Password <input type="password" name="pass1" ><br>
+Re-Enter Password<input type="password" name="pass2" ><br>
+<input type="reset" ><input type="submit" value="REGISTER" >
+<p>After Clicking on Register button,you will be redirected to Login Page as your details get registered.</p>
+        </form></body>
+</html>
+
+Reg.java
+
+
+response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+            String uname=request.getParameter("name");
+String pass1 = request.getParameter("pass1");
+String pass2 = request.getParameter("pass2");
+if(pass1.equals(pass2)){
+try{
+
+Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/sa","sa","sa");
+PreparedStatement stmt = con.prepareStatement("update usepass set pass=? where username=?");
+stmt.setString(1, pass1); stmt.setString(2, uname);
+int row = stmt.executeUpdate();
+if(row==1) { out.println("Password Changed");
+response.sendRedirect("Login.jsp");}
+else {
+out.println("Password Not Changed");
+response.sendRedirect("Register.jsp");}
+
+}catch(Exception e){out.println(e);}
+}
+else
+{
+out.println("<h1>Password Mismatch</h1>");
+}
+
+
+Login.jsp
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+    </head>
+    <body>
+        <form action="log" method="post" >
+Enter User Name <input type="text" name="name" ><br>
+Enter Password <input type="password" name="pass" ><br>
+<input type="reset" ><input type="submit" value="~~LOGIN~" >
+To Update password:<a href="update.jsp" >Change Password</a>
+        </form></body>
+</html>
+
+
+Log.java
+
+response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+            String uname=request.getParameter("name");
+String pass1 = request.getParameter("pass1");
+String pass2 = request.getParameter("pass2");
+if(pass1.equals(pass2)){
+try{
+
+Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/sa","sa","sa");
+PreparedStatement stmt = con.prepareStatement("update usepass set pass=? where username=?");
+stmt.setString(1, pass1); stmt.setString(2, uname);
+int row = stmt.executeUpdate();
+if(row==1) { out.println("Password Changed");
+response.sendRedirect("Login.jsp");}
+else {
+out.println("Password Not Changed");
+response.sendRedirect("Register.jsp");}
+
+}catch(Exception e){out.println(e);}
+}
+else
+{
+out.println("<h1>Password Mismatch</h1>");
+}
+
+
+Update.jsp
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+    </head>
+    <body>
+        <form action="up" >
+        Enter User Name <input type="text" name="name" ><br>
+Enter Password <input type="password" name="pass1" ><br>
+Re-Enter Password<input type="password" name="pass2" ><br>
+<input type="reset" ><input type="submit" value="REGISTER" >
+        </form></body>
+</html>
+
+
+Up.java
+
+response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+            String uname=request.getParameter("name");
+String pass1 = request.getParameter("pass1");
+String pass2 = request.getParameter("pass2");
+if(pass1.equals(pass2)){
+try{
+
+Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/sa","sa","sa");
+PreparedStatement stmt = con.prepareStatement("update usepass set pass=? where username=?");
+stmt.setString(1, pass1); stmt.setString(2, uname);
+int row = stmt.executeUpdate();
+if(row==1) { out.println("Password Changed");
+response.sendRedirect("Login.jsp");}
+else {
+out.println("Password Not Changed");
+response.sendRedirect("Register.jsp");}
+
+}catch(Exception e){out.println(e);}
+}
+else
+{
+out.println("<h1>Password Mismatch</h1>");
+}

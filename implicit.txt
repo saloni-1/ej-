@@ -1,0 +1,51 @@
+index.jsp
+<%@ page language="java" contentType="text/html; charset=US-ASCII"
+    pageEncoding="US-ASCII"%>
+<%@ page import="java.util.Date" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Index JSP Page</title>
+</head>
+<body>
+<%-- out object example --%>
+<h4>Hi There</h4>
+<strong>Current Time is</strong>: <% out.print(new Date()); %><br><br>
+<%-- response object example --%>
+<%response.addCookie(new Cookie("Test","Value")); %>
+<%-- session object example --%>
+<strong>User Session ID</strong>:<%=session.getId() %><br><br>
+<%-- request object example --%>
+<strong>Request User-Agent</strong>: <%=request.getHeader("User-Agent") %><br><br>
+</body>
+</html>
+
+
+web.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+  <display-name>JSPImplicitObjects</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <context-param>
+  <param-name>User</param-name>
+  <param-value>Admin</param-value>
+  </context-param>
+  
+  <servlet>
+  <servlet-name>home</servlet-name>
+  <jsp-file>/index.jsp</jsp-file>
+  <init-param>
+  	<param-name>User</param-name>
+  	<param-value>Pankaj</param-value>
+  </init-param>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>home</servlet-name>
+  <url-pattern>/home.do</url-pattern>
+  <url-pattern>/home.jsp</url-pattern>
+  </servlet-mapping>
+</web-app>

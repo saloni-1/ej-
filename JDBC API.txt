@@ -1,0 +1,50 @@
+Q 
+               Index.html
+<!DOCTYPE html>
+  <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <form action="store.jsp" method="post">
+        Enter your name:-<input type="text" name="fname"><br>
+        Enter your last_name:-<input type="text" name="lname"><br>
+        Enter your email :-<input type="text" name="email"><br>
+        Enter your username:-<input type="text" name="username"><br>
+        Enter your paassword:-<input type="password" name="password"><br>
+        <input type="submit">
+        </form>
+    </body>
+</html>
+                                               store.jsp
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <%@page import="java.sql.Connection"%>
+    <%@page import="java.sql.Statement"%>
+    <%@page import="java.sql.ResultSet"%>
+    <%@page import="java.sql.DriverManager"%>
+    <%@page import="java.sql.SQLException" %>
+    <%	
+        String a=request.getParameter("fname");
+        
+        String b=request.getParameter("lname");
+        
+        String c=request.getParameter("email");
+        
+        String d=request.getParameter("username");
+        
+        String e=request.getParameter("password");
+        String s="insert into userdata values("+"'"+a+"'"+","+"'"+b+"'"+","+"'"+c+"'"+","+"'"+d+"'"+","+"'"+e+"'"+")";
+        try{
+        Connection co=DriverManager.getConnection("jdbc:derby://localhost:1527/login","r","r");
+        Statement st=co.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        st.executeUpdate(s);
+        out.println("DATA STORE SUCCESSFULLY");
+        }
+        catch(SQLException k){
+            out.println(k.toString());
+        }
+        %>
+</html>
